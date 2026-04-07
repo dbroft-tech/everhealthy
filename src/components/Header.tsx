@@ -1,0 +1,131 @@
+import { ShoppingCart, Heart, Menu, X } from 'lucide-react';
+import { useState } from 'react';
+import { Currency } from '../utils/currency';
+
+interface HeaderProps {
+  cartItemCount: number;
+  onCartClick: () => void;
+  currentPage: 'home' | 'products' | 'checkout' | 'contact' | 'about' | 'testimonials' | 'business';
+  onNavigate: (page: 'home' | 'products' | 'checkout' | 'contact' | 'about' | 'testimonials' | 'business') => void;
+  currency: Currency;
+  onCurrencyChange: (currency: Currency) => void;
+  exchangeRate: number;
+}
+
+export function Header({ cartItemCount, onCartClick, currentPage, onNavigate, currency, onCurrencyChange, exchangeRate }: HeaderProps) {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const navItems = [
+    { label: 'Home', page: 'home' as const },
+    { label: 'Products', page: 'products' as const },
+    { label: 'Testimonials', page: 'testimonials' as const },
+    { label: 'Business', page: 'business' as const },
+    { label: 'About', page: 'about' as const },
+    { label: 'Contact', page: 'contact' as const },
+  ];
+
+  return (
+    <header className="bg-white/95 backdrop-blur-md border-b-2 border-emerald-100 sticky top-0 z-30 shadow-lg">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-20">
+          <div
+            className="flex items-center gap-3 cursor-pointer group"
+            onClick={() => onNavigate('home')}
+          >
+            <div className="relative w-14 h-14 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-emerald-400 via-emerald-500 to-emerald-700"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-transparent via-white/20 to-white/40"></div>
+              <Heart className="w-8 h-8 text-white fill-white relative z-10 drop-shadow-lg" />
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-700 bg-clip-text text-transparent drop-shadow-sm">Everhealthy</h1>
+              <p className="text-xs text-emerald-600 font-bold uppercase tracking-wide">Your Wellness Partner</p>
+            </div>
+          </div>
+
+          <nav className="hidden md:flex items-center gap-8">
+            {navItems.map((item) => (
+              <button
+                key={item.page}
+                onClick={() => onNavigate(item.page)}
+                className={`font-bold text-base transition-all relative group ${
+                  currentPage === item.page
+                    ? 'text-emerald-700'
+                    : 'text-gray-700 hover:text-emerald-600'
+                }`}
+              >
+                {item.label}
+                <span className={`absolute -bottom-6 left-0 right-0 h-1 bg-gradient-to-r from-emerald-400 via-emerald-500 to-emerald-700 rounded-full shadow-md shadow-emerald-500/50 transition-transform ${
+                  currentPage === item.page ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                }`} />
+              </button>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-4">
+            <select
+              value={currency}
+              onChange={(e) => onCurrencyChange(e.target.value as Currency)}
+              className="px-3 py-2 border border-gray-300 rounded-lg text-sm font-medium bg-white hover:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors"
+            >
+              <option value="USD">USD</option>
+              <option value="UGX">UGX</option>
+            </select>
+
+            {currency === 'UGX' && (
+              <div className="hidden lg:block text-xs text-gray-600">
+                1 USD = {exchangeRate.toLocaleString()} UGX
+              </div>
+            )}
+
+            <button
+              onClick={onCartClick}
+              className="relative p-3 hover:bg-emerald-50 rounded-xl transition-all hover:scale-105"
+            >
+              <ShoppingCart className="w-6 h-6 text-emerald-700" />
+              {cartItemCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-gradient-to-br from-emerald-400 via-emerald-500 to-emerald-700 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center shadow-lg shadow-emerald-500/50">
+                  {cartItemCount}
+                </span>
+              )}
+            </button>
+
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="md:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            >
+              {isMobileMenuOpen ? (
+                <X className="w-6 h-6 text-gray-700" />
+              ) : (
+                <Menu className="w-6 h-6 text-gray-700" />
+              )}
+            </button>
+          </div>
+        </div>
+
+        {isMobileMenuOpen && (
+          <div className="md:hidden py-4 border-t">
+            <nav className="flex flex-col gap-2">
+              {navItems.map((item) => (
+                <button
+                  key={item.page}
+                  onClick={() => {
+                    onNavigate(item.page);
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className={`text-left px-4 py-3 rounded-lg font-medium transition-colors ${
+                    currentPage === item.page
+                      ? 'bg-emerald-50 text-emerald-600'
+                      : 'text-gray-700 hover:bg-gray-50'
+                  }`}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </nav>
+          </div>
+        )}
+      </div>
+    </header>
+  );
+}
