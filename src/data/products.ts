@@ -17,7 +17,7 @@ export const products: Product[] = [
 
   { id: '11', name: 'Clean Detox Caps', description: 'Immunity builder age related disorders and detoxification (60CAPS)', price: 27, image: 'https://everhealthyintl.com/assets/images/product/63ea2655cdb341676289621.jpg', category: 'Capsules', rating: 4.6, reviews: 110, inStock: true },
 
-  { id: '12', name: 'Green Tea', description: 'Lose weight fights any cancer with everhealthy green tea (60CAPS)', price: 27, image: 'https://everhealthyintl.com/assets/images/product/644a025d837c71682571869.jpeg', category: 'Capsules', rating: 4.6, reviews: 312, inStock: true },
+  { id: '12', name: 'Green Tea', description: 'Lose weight fights any cancer with everhealthy green tea (60CAPS)', price: 27, image: 'https://www.everhealthyintl.com/assets/images/product/644a025d837c51682571869.jpeg', category: 'Capsules', rating: 4.6, reviews: 312, inStock: true },
 
   { id: '13', name: 'Cardamon Tea', description: 'Instant cardamon tea with coffee flavors (20CAPS)', price: 19, image: 'https://everhealthyintl.com/assets/images/product/64b691d08f69d1689686480.jpeg', category: 'Capsules', rating: 4.7, reviews: 245, inStock: true },
 
