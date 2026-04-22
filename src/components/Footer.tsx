@@ -105,14 +105,14 @@ export function Footer({ onNavigate }: FooterProps) {
               </li>
               <li>
                 <p className="text-gray-500 text-xs uppercase tracking-wide mb-1">Phone</p>
-                <a href="tel:+256702111134" className="text-emerald-400 hover:text-emerald-300 transition-colors text-sm font-medium">
-                  +256 702 111 134
+                <a href="tel:+256707125860" className="text-emerald-400 hover:text-emerald-300 transition-colors text-sm font-medium">
+                  +256 707 125 860
                 </a>
               </li>
               <li>
                 <p className="text-gray-500 text-xs uppercase tracking-wide mb-1">WhatsApp</p>
                 <a
-                  href="https://wa.me/256702111134"
+                  href="https://wa.me/256707125860"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-emerald-400 hover:text-emerald-300 transition-colors text-sm font-medium"
